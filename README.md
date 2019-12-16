@@ -14,18 +14,18 @@ We have created multiple API's that can be called by importing these drivers in 
 
 STEPS TO FOLLOW AND API REFERENCES - 
 
-1) lora_init(uint32_t frequency) - this API is used to initialize the LoRa module and must be called before any other API.
-2) parse_received_packet(uint8_t header)  - This API is used to parse the received data packet. In header pass value =0 for explicit header mode and value = 1 for implicit header mode.
-3) read_data_in_payload() - This API is used to read the data from received packet payload.
-4) set_implicit_header() - This API can be called to set the header as implicit.
+1) lora_init(uint32_t frequency) - this API is used to initialize the LoRa module and must be called before any other API. Pass the ISM operating frequency of your country. For USA it is 915Mhz.
+2) parse_received_packet(uint8_t header)  - This API is used to parse the received data packet. Pass value = 0 for explicit header mode and value = 1 for implicit header mode.
+3) read_data_in_payload() - This API is used to read the data from received packet payload. It returns a character
+4) set_implicit_header() - This API can be called to set the header as implicit. In implicit mode the Tx and Rx must be set with payload information before transmission
 5) set_explicit_header() - This API can be called to set the header as explicit.
-6) uint8_t receiver_rssi() - In order to calculate the received packet RSSI simply call this API and read the value it returns.
-7) setPreambleLength(uint64_t length) - This API is used to vary the packet preamble length
-8) enable_crc() - This API is used to enable the CRC
+6) uint8_t receiver_rssi() - In order to calculate the received packet RSSI simply call this API and read the value it returns. Unit of RSSI is dBm.
+7) setPreambleLength(uint64_t length) - This API is used to vary the packet preamble length. Defualt preamble is set to 8
+8) enable_crc() - This API is used to enable the CRC. It is advised to enable crc for good signal transmission
 9) diable_crc() - This API is used to disable the optional CRC check
-10) set_lora_tx_power(uint8_t level) - This API is used to set the Transmitter power
+10) set_lora_tx_power(uint8_t level) - This API is used to set the Transmitter power. For our module the value passed was 17 as default.
 11) set_coding_rate(uint8_t coding_rate) - This API can used to change the coding rate. Values range from 1-4
-12) setSpreadingFactor(uint8_t sf) - This API can used to change the spreading factor to improve resistivity to interference. Values range from 6-12.
+12) setSpreadingFactor(uint8_t sf) - This API can be called to change the spreading factor to improve resistivity to interference. Values range from 6-12.
 13) set_bandwidth(bandwidth input_bandwidth) - This API can used to change the bandwidth o Lora from 7.8Khz to 500Khz
 
 Our drivers have been developed in such a way that, one can simply call the above API's and change various physical register values without actually having to write exhaustive code and understand memory mapping of LoRa physical registers, thus making it easier for future use and development.
